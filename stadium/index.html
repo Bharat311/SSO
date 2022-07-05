@@ -9,10 +9,12 @@
       window.addEventListener('load', function() {
         console.log('- Stadium loaded -')
         document.cookie = "authenticated=true";
+        console.log('Authentication cookie set: ', document.cookie)
       })
       window.addEventListener("message", function(event) {
         console.log('- Stadium received message -')
         console.log('Event: ', event)
+        console.log('Cookies: ', document.cookie)
         event.source.postMessage(document.cookie, event.origin)
       });
     </script>
