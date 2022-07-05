@@ -16,7 +16,7 @@
       window.addEventListener("load", function() {
         console.log('- Swags loaded -');
         var iframe = document.getElementById("stadium");
-        iframe.contentWindow.postMessage('Get cookies', 'http://stadium.com', false);
+        iframe.contentWindow.postMessage('Get cookies', 'http://stadium.com');
       })
       window.addEventListener("message", function(event) {
         console.log('- Swags received message -');
