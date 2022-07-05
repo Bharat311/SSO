@@ -16,10 +16,11 @@
       window.addEventListener("load", function() {
         console.log('- Snacks loaded -');
         var iframe = document.getElementById("stadium");
-        iframe.postMessage('Get cookies', 'http://stadium.com');
+        iframe.contentWindow.postMessage('Get cookies', 'http://stadium.com');
       })
       window.addEventListener("message", function(event) {
         console.log('- Snacks received message -');
+        console.log('Event: ', event)
         document.getElementById("cookieData").innerHTML = event.data;
       });
     </script>
