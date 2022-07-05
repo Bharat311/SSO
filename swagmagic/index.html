@@ -13,7 +13,15 @@
     <h2 id="cookieData"></h2>
     <iframe id="stadium" class="d-none" src="http://stadium.com"></iframe>
     <script type="text/javascript">
-
+      window.addEventListener("load", function() {
+        console.log('- Swags loaded -');
+        var iframe = document.getElementById("stadium");
+        iframe.postMessage('Get cookies', 'http://stadium.com');
+      })
+      window.addEventListener("message", function(event) {
+        console.log('- Swags received message -');
+        document.getElementById("cookieData").innerHTML = event.data;
+      });
     </script>
   </body>
 </html>
