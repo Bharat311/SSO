@@ -7,7 +7,9 @@
     <h1>Welcome to Stadium!</h1>
     <script type="text/javascript">
       document.cookie = "authenticated=true";
-      console.log('Authentication cookie set: ', document.cookie)
+      console.log('Cookie set: ', document.cookie)
+      localStorage.setItem('authenticated', true)
+      console.log('LocalStorage set: ', localStorage.getItem('authenticated'))
 
       window.addEventListener('load', function() {
         console.log('- Stadium loaded -');
@@ -16,7 +18,11 @@
         console.log('- Stadium received message -')
         console.log('Event: ', event)
         console.log('Cookies: ', document.cookie)
-        event.source.postMessage(document.cookie, event.origin)
+        var data = {
+          cookie: document.cookie,
+          localStorage: localStorage.getItem('authenticated')
+        }
+        event.source.postMessage(data, event.origin)
       });
     </script>
   </body>
