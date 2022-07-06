@@ -7,26 +7,24 @@
     <h1>Welcome to Stadium!</h1>
     <script type="text/javascript">
       document.cookie = "authenticated=true";
-      console.log('Cookie set: ', document.cookie)
       localStorage.setItem('authenticated', true)
-      console.log('LocalStorage set: ', localStorage.getItem('authenticated'))
 
-      function sendSessionInfo() {
-        console.log('- Send session info -')
-        var session = localStorage.getItem('session');
-        window.top.postMessage(session, '*');
-      }
+      // function sendSessionInfo() {
+      //   console.log('- Send session info -')
+      //   var session = localStorage.getItem('session');
+      //   window.top.postMessage(session, '*');
+      // }
 
-      window.addEventListener('load', function() {
-        console.log('- Stadium loaded -');
-        // This message is not sent as the parent hasn't loaded yet.
-        sendSessionInfo()
-      })
+      // window.addEventListener('load', function() {
+      //   console.log('- Stadium loaded -');
+      //   // This message is not sent as the parent hasn't loaded yet.
+      //   sendSessionInfo()
+      // })
 
       window.addEventListener("message", function(event) {
         console.log('- Stadium received message -')
         console.log('Event: ', event)
-        console.log('Cookies: ', document.cookie)
+        console.log('Data: ', event.data)
 
         switch (event.data) {
           case 'login':
@@ -37,7 +35,7 @@
             break;
           case 'read':
             var data = {
-              cookie: document.cookie,
+              cookie: document.cookie != "",
               session: localStorage.getItem('session'),
               localStorage: localStorage.getItem('authenticated')
             }

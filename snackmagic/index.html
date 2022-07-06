@@ -10,10 +10,10 @@
   </head>
   <body>
     <h1>Welcome to SnackMagic!</h1>
-    <h2>Cookies: <span id="cookieData"></span></h2>
-    <h2>LocalStorage: <span id="localStorageData"></span></h2>
-    <button id="login">LOGIN</button>
-    <button id="logout">LOGOUT</button>
+    <h2>Reading cookies: <span id="cookieData"></span></h2>
+    <h2>Reading local storage: <span id="localStorageData"></span></h2>
+    <button id="login" class="d-none">LOGIN</button>
+    <button id="logout" class="d-none">LOGOUT</button>
     <iframe id="stadium" class="d-none" src="http://stadium.com"></iframe>
     <script type="text/javascript">
       function messageIframe(data) {
@@ -45,6 +45,8 @@
       window.addEventListener("message", function(event) {
         console.log('- Snacks received message -');
         console.log('Event: ', event)
+        console.log('Data: ', event.data)
+
         var data = event.data;
         document.getElementById("cookieData").innerHTML = data.cookie;
         document.getElementById("localStorageData").innerHTML = data.localStorage;
