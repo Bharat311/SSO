@@ -1,10 +1,16 @@
-- name: Deploy code
-  uses: garygrossgarten/github-action-ssh@release
-  on:
-    push:
-      branches: [ "main" ]
-  with:
-    command: deploy
-    host: ${{ secrets.SSH_HOST }}
-    username: ${{ secrets.SSH_USER }}
-    privateKey: ${{ secrets.SSH_KEY}}
+name: Deploy code
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: run deploy script
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: deploy
