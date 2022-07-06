@@ -19,6 +19,16 @@
         event.source.postMessage(data, event.origin)
       }
 
+      function refreshSession() {
+        var span = document.getElementById("sessionData");
+        var value = localStorage.getItem("session");
+        span.innerHTML = value || "false";
+      }
+
+      window.addEventListener("load", function() {
+        refreshSession()
+      })
+
       window.addEventListener("message", function(event) {
         console.log('- Stadium received message -')
         console.log('Event: ', event)
@@ -43,9 +53,7 @@
       window.addEventListener("storage", function(event) {
         console.log('- Local storage changed -')
         console.log('Event: ', event)
-        var span = document.getElementById("sessionData");
-        var value = localStorage.getItem("session");
-        span.innerHTML = value;
+        refreshSession()
       })
     </script>
   </body>
