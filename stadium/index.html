@@ -21,10 +21,19 @@
       //   sendSessionInfo()
       // })
 
+      function refreshData(event) {
+        var data = {
+          cookie: document.cookie != "",
+          session: localStorage.getItem('session'),
+          localStorage: localStorage.getItem('authenticated')
+        }
+        event.source.postMessage(data, event.origin)
+      }
+
       window.addEventListener("message", function(event) {
         console.log('- Stadium received message -')
         console.log('Event: ', event)
-        console.log('Data: ', event.data)
+        console.log('Action: ', event.data)
 
         switch (event.data) {
           case 'login':
@@ -34,16 +43,12 @@
             localStorage.removeItem('session');
             break;
           case 'read':
-            var data = {
-              cookie: document.cookie != "",
-              session: localStorage.getItem('session'),
-              localStorage: localStorage.getItem('authenticated')
-            }
-            event.source.postMessage(data, event.origin)
             break;
           default:
             console.error('INVALID ACTION - ', event.data)
         }
+
+        refreshData(event);
       });
     </script>
   </body>
