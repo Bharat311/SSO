@@ -1,0 +1,7 @@
+- name: Deploy code
+  uses: garygrossgarten/github-action-ssh@release
+  with:
+    command: deploy
+    host: ${{ secrets.SSH_HOST }}
+    username: ${{ secrets.SSH_USER }}
+    privateKey: ${{ secrets.SSH_KEY}}
