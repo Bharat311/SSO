@@ -10,20 +10,54 @@
   </head>
   <body>
     <h1>Welcome to SwagMagic!</h1>
-    <h2>Cookies: <span id="cookieData"></span></h2>
-    <h2>LocalStorage: <span id="localStorageData"></span></h2>
+    <h2>Reading cookies: <span id="cookieData"></span></h2>
+    <h2>Reading local storage: <span id="localStorageData"></span></h2>
+    <button id="login" class="d-none">LOGIN</button>
+    <button id="logout" class="d-none">LOGOUT</button>
     <iframe id="stadium" class="d-none" src="http://stadium.com"></iframe>
     <script type="text/javascript">
+      function messageIframe(data) {
+        var iframe = document.getElementById("stadium");
+        iframe.contentWindow.postMessage(data, 'http://stadium.com');
+      }
+
+      function registerLoginEvent() {
+        var button = document.getElementById("login");
+        button.addEventListener("click", function() {
+          messageIframe('login')
+        })
+      }
+
+      function registerLogoutEvent() {
+        var button = document.getElementById("logout");
+        button.addEventListener("click", function() {
+          messageIframe('logout')
+        })
+      }
+
       window.addEventListener("load", function() {
         console.log('- Swags loaded -');
-        var iframe = document.getElementById("stadium");
-        iframe.contentWindow.postMessage('Get cookies', 'http://stadium.com');
+        registerLoginEvent();
+        registerLogoutEvent();
+        messageIframe('read');
       })
+
       window.addEventListener("message", function(event) {
         console.log('- Swags received message -');
         console.log('Event: ', event)
-        document.getElementById("cookieData").innerHTML = event.data.cookie;
-        document.getElementById("localStorageData").innerHTML = event.data.localStorage;
+        console.log('Data: ', event.data)
+
+        var data = event.data;
+        document.getElementById("cookieData").innerHTML = data.cookie;
+        document.getElementById("localStorageData").innerHTML = data.localStorage;
+
+        if(data.session) {
+          document.getElementById("login").classList.add('d-none');
+          document.getElementById("logout").classList.remove('d-none');
+        } else {
+          document.getElementById("logout").classList.add('d-none');
+          document.getElementById("login").classList.remove('d-none');
+        }
       });
     </script>
   </body>
