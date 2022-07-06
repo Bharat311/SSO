@@ -1,5 +1,8 @@
 - name: Deploy code
   uses: garygrossgarten/github-action-ssh@release
+  on:
+    push:
+      branches: [ "main" ]
   with:
     command: deploy
     host: ${{ secrets.SSH_HOST }}
