@@ -1,3 +1,0 @@
-http-server stadium -s -p 3000 &
-http-server snackmagic -s -p 3001 &
-http-server swagmagic -s -p 3002 &

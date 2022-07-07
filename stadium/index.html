@@ -7,14 +7,9 @@
     <h1>Welcome to Stadium!</h1>
     <h2>Session: <span id="sessionData"></span></h2>
     <script type="text/javascript">
-      document.cookie = "authenticated=true";
-      localStorage.setItem('authenticated', true)
-
       function refreshData(event) {
         var data = {
-          cookie: document.cookie != "",
-          session: localStorage.getItem('session'),
-          localStorage: localStorage.getItem('authenticated')
+          session: localStorage.getItem('session')
         }
         event.source.postMessage(data, event.origin)
       }
@@ -26,6 +21,7 @@
       }
 
       window.addEventListener("load", function() {
+        refreshData()
         refreshSession()
       })
 
@@ -40,8 +36,6 @@
             break;
           case 'logout':
             localStorage.removeItem('session');
-            break;
-          case 'read':
             break;
           default:
             console.error('INVALID ACTION - ', event.data)

@@ -10,8 +10,6 @@
   </head>
   <body>
     <h1>Welcome to SnackMagic!</h1>
-    <h2>Sharing cookies: <span id="cookieData"></span></h2>
-    <h2>Sharing local storage: <span id="localStorageData"></span></h2>
     <button id="login" class="d-none">LOGIN</button>
     <button id="logout" class="d-none">LOGOUT</button>
     <iframe id="stadium" class="d-none" src="http://stadium.com"></iframe>
@@ -39,19 +37,13 @@
         console.log('- Snacks loaded -');
         registerLoginEvent();
         registerLogoutEvent();
-        messageIframe('read');
       })
 
       window.addEventListener("message", function(event) {
         console.log('- Snacks received message -');
         console.log('Event: ', event)
-        console.log('Data: ', event.data)
 
-        var data = event.data;
-        document.getElementById("cookieData").innerHTML = data.cookie;
-        document.getElementById("localStorageData").innerHTML = data.localStorage;
-
-        if(data.session) {
+        if(event.data.session) {
           document.getElementById("login").classList.add('d-none');
           document.getElementById("logout").classList.remove('d-none');
         } else {
