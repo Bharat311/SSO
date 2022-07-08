@@ -37,6 +37,7 @@
         console.log('- Snacks loaded -');
         registerLoginEvent();
         registerLogoutEvent();
+        messageIframe('ready');
       })
 
       window.addEventListener("message", function(event) {

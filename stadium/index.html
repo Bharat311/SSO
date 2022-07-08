@@ -21,8 +21,8 @@
       }
 
       window.addEventListener("load", function() {
+        console.log('- Snacks loaded -');
         refreshData()
-        refreshSession()
       })
 
       window.addEventListener("message", function(event) {
@@ -31,6 +31,8 @@
         console.log('Action: ', event.data)
 
         switch (event.data) {
+          case 'ready':
+            break;
           case 'login':
             localStorage.setItem('session', true);
             break;
